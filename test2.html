@@ -1,0 +1,53 @@
+<!--
+ * @Author: BeautifulFeng 11593811+beautifulfeng@user.noreply.gitee.com
+ * @Date: 2023-03-02 17:16:19
+ * @LastEditors: BeautifulFeng 11593811+beautifulfeng@user.noreply.gitee.com
+ * @LastEditTime: 2023-03-02 17:32:20
+ * @FilePath: \test\test2.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!--
+ * @Author: BeautifulFeng 11593811+beautifulfeng@user.noreply.gitee.com
+ * @Date: 2023-03-02 17:16:19
+ * @LastEditors: BeautifulFeng 11593811+beautifulfeng@user.noreply.gitee.com
+ * @LastEditTime: 2023-03-02 17:27:56
+ * @FilePath: \test\test2.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    var list = [
+      { id: 2, name: "部门B", parentId: 0 },
+      { id: 3, name: "部门C", parentId: 1 },
+      { id: 1, name: "部门A", parentId: 2 },
+      { id: 4, name: "部门D", parentId: 1 },
+      { id: 5, name: "部门E", parentId: 2 },
+      { id: 6, name: "部门F", parentId: 3 },
+      { id: 7, name: "部门G", parentId: 2 },
+      { id: 8, name: "部门H", parentId: 4 },
+      { id: 9, name: "部门H", parentId: 0 },
+    ];
+    /**
+     * @description:
+     * @param {*} list
+     * @param {*} root
+     * @return {*}
+     */
+
+    function arrayToTreeV3(list, root) {
+      return list
+        .filter((item) => item.parentId === root)
+        .map((item) => ({ ...item, children: arrayToTreeV3(list, item.id) }));
+    }
+    console.log(arrayToTreeV3(list, 0));
+  </script>
+
+  <body></body>
+</html>

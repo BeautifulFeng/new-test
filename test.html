@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    // 需转化数组示例
+    var list = [
+      { id: 2, name: "部门B", parentId: 0 },
+      { id: 3, name: "部门C", parentId: 1 },
+      { id: 1, name: "部门A", parentId: 2 },
+      { id: 4, name: "部门D", parentId: 1 },
+      { id: 5, name: "部门E", parentId: 2 },
+      { id: 6, name: "部门F", parentId: 3 },
+      { id: 7, name: "部门G", parentId: 2 },
+      { id: 8, name: "部门H", parentId: 4 },
+      { id: 9, name: "部门H", parentId: 0 },
+    ];
+
+    function toTree(data) {
+      // 1.定义最外层的数组
+      const tree = [];
+      // 2.定义一个空对象
+      const otherObj = {};
+      // 3.遍历数组内所有对象
+      data.forEach((item) => {
+        // 3.1.给每个当前对象添加一个 children 属性, 以便存放子级对象
+        item.children = [];
+        // 3.2 将当前对象的 id 作为键, 与当前对象自身形成键值对
+        otherObj[item.id] = item;
+        // console.log(otherObj, item, item.id);
+      });
+
+      // 4.再次遍历数组内所有对象
+      data.forEach((item) => {
+        // 4.1.判断每个当前对象的 parentId, 如当前对象 parentId 不为空, 则说明不是最上级的根对象
+        if (item.parentId) {
+          // 4.3.利用当前对象的 otherObj[parentId] 找到 otherObj[id] 中对应当前对象的父级对象, 将当前对象添加到其对应的父级对象的 children 属性中
+          otherObj[item.parentId].children.push(item);
+        } else {
+          // 4.2.当前对象 parentId 如果为空, 则为树状结构的根对象
+          tree.push(item);
+        }
+      });
+      // 5.返回树状结构
+      return data;
+    }
+
+    console.log(toTree(list));
+  </script>
+  <body></body>
+</html>
